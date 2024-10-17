@@ -21,15 +21,15 @@ Precisamos deixar nosso desafio com o código mais modularizado. Para isso vamos
 
 ###  Função Saque:
 
-A função de saque deve receber os argumentos apenas por nome (*keyword only*). Sugestão de argumentos: saldo, valor, extrato, limite, numero de saques, limite de saques. Sugestão de retorno: saldo e extrato.
+A função de saque deve receber os argumentos apenas por nome (*keyword only*). Sugestão de argumentos: saldo, valor, extrato, limite, numero de saques e/ou limite de saques. Sugestão de retorno: saldo e/ou extrato.
 
 ###  Função Depósito:
 
-A função de depósito deve receber os argumentos apenas por posição (*positional only*). Sugestão de argumentos: saldo, valor, extrato. Sugestão de retorno: saldo e extrato.
+A função de depósito deve receber os argumentos apenas por posição (*positional only*). Sugestão de argumentos: saldo, valor e/ou extrato. Sugestão de retorno: saldo e/ou extrato.
 
 ###  Função Extrato:
 
-A função extrato deve receber os argumentos por posição e nome (*positional* e *keyword only*). Argumentos posicionais: saldo; argumentos nomeados: extrato.
+A função extrato deve receber os argumentos por posição e nome (*positional* e *keyword only*). Argumento posicionai: saldo; argumento nomeado: extrato.
 
 ###  Função Criar Usuário:
 
@@ -39,7 +39,7 @@ O programa deve armazenar os usuários em uma lista. Um usuário é composto por
 
 O programa deve armazenar contas em uma lista. Uma conta é composta por: agência, número da conta e usuário. O número da conta é sequencial, iniciando em 1. O número da agência é fixo: "0001". O usuário pode ter mais de uma conta, mas uma conta pertence a somente um usuário.
 
-> Dica: Para vincular um usuário a uma conta, filtre a lista de usuários buscando o número do CPF informado para cada usuário da lista.
+> **Dica:** Para vincular um usuário a uma conta, filtre a lista de usuários buscando o número do CPF informado para cada usuário da lista.
 
 ## Ferramentas Utilizadas
 
