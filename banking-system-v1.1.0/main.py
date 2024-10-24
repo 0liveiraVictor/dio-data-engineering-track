@@ -26,6 +26,69 @@ def get_datetime():
 
 
 '''
+    get specific user
+'''
+def get_user(ssn, bank_users):
+    filtered_user = [user for user in bank_users if user["ssn"] == ssn] # list can be empty or with one element (len iqual 0 or 1, respectively)
+    if len(filtered_user) == 1: # user exist
+        user_dict = filtered_user[0]
+        return user_dict
+    else: # user not exist
+        return None
+
+
+'''
+    create account
+'''
+def create_account(BANK_AGENCY, bank_account_index, bank_users, bank_accounts):
+    while True:
+        ssn = input("\nDigite o CPF do usuário cadastrado no BANKING SYSTEM (somente números): ")
+        if ssn.isdigit():
+            break
+        else:
+            print("\n✖ - Operação não permitida. Por favor, insira apenas números.")
+    user = get_user(ssn, bank_users)
+    if user is None:
+        print("\n✖ Usuário não possui cadastro no BANKING SYSTEM. Faça seu cadastro!", end="")
+        return  bank_account_index, bank_accounts
+    else:
+        account_dict = { "agency": BANK_AGENCY, "account_number": f"{bank_account_index}", "username": user["name"] }
+        bank_accounts.append(account_dict)
+        print("\n✔ - Conta criada com sucesso. Seja bem-vindo(a) ao BANKING SYSTEM!", end="")
+        bank_account_index += 1
+        return  bank_account_index, bank_accounts 
+
+
+'''
+    create user
+'''
+def create_user(bank_users):
+    while True:
+        ssn = input("\nDigite o CPF do usuário (somente números): ")
+        if ssn.isdigit():
+            break
+        else:
+            print("\n✖ - Operação não permitida. Por favor, insira apenas números.")
+    user = get_user(ssn, bank_users)
+    if user:
+        print("\n✖ Usuário já cadastrado no BANKING SYSTEM.", end="")
+        return bank_users
+    else:
+        name = input("Digite o nome completo do usuário: ")
+        date_of_birth = input("Digite a data de nascimento (dd/mm/aaaa): ")
+        street = input("Digite o logradouro (rua, avenida, praça e etc.): ")
+        number = input("Digite o número do imóvel: ")
+        district = input("Digite o bairro: ")
+        city = input("Digite a cidade: ")
+        state = input("Digite a sigla do estado (RJ, SP e etc.): ")
+        address = f"{street}, {number} - {district} - {city}/{state}"
+        user_dict = { "name": name, "date_of_birth": date_of_birth, "ssn": ssn, "address": address }
+        bank_users.append(user_dict)
+        print("\n✔ - Usuário cadastrado no BANKING SYSTEM com sucesso.", end="")
+        return bank_users
+
+
+'''
     get transactions extract
 '''
 def get_bank_statement(extract):
@@ -128,6 +191,7 @@ Selecione uma opção válida para a operação bancária:
 '''
 def get_global_variables():
     BANK_AGENCY = "0001"
+    bank_account_index = 1
     WITHDRAWAL_LIMIT = 3
     withdrawal_number = 0
     total_transactions = 0
@@ -137,14 +201,14 @@ def get_global_variables():
     extract = [] # bank statement list
     bank_users = []
     bank_accounts = []
-    return BANK_AGENCY, WITHDRAWAL_LIMIT, withdrawal_number, total_transactions, TRANSACTIONS_LIMIT, bank_balance, BANK_WITHDRAWAL_LIMIT, extract, bank_users, bank_accounts
+    return BANK_AGENCY, bank_account_index, WITHDRAWAL_LIMIT, withdrawal_number, total_transactions, TRANSACTIONS_LIMIT, bank_balance, BANK_WITHDRAWAL_LIMIT, extract, bank_users, bank_accounts
 
 
 '''
     main function
 '''
 def main():
-    BANK_AGENCY, WITHDRAWAL_LIMIT, withdrawal_number, total_transactions, TRANSACTIONS_LIMIT, bank_balance, BANK_WITHDRAWAL_LIMIT, extract, bank_users, bank_accounts = get_global_variables()
+    BANK_AGENCY, bank_account_index, WITHDRAWAL_LIMIT, withdrawal_number, total_transactions, TRANSACTIONS_LIMIT, bank_balance, BANK_WITHDRAWAL_LIMIT, extract, bank_users, bank_accounts = get_global_variables()
     menu_options = get_menu_options()
     initial_system_print()
     while True:
@@ -158,6 +222,10 @@ def main():
             total_transactions, withdrawal_number, bank_balance, extract = execute_withdrawal(total_transactions, TRANSACTIONS_LIMIT, withdrawal_number, WITHDRAWAL_LIMIT, BANK_WITHDRAWAL_LIMIT, bank_balance, extract)
         elif option == "3":
             get_bank_statement(extract)
+        elif option == "4":
+            bank_users = create_user(bank_users)
+        elif option == "5":
+            bank_account_index, bank_accounts = create_account(BANK_AGENCY, bank_account_index, bank_users, bank_accounts)
     final_system_print()
 
 
