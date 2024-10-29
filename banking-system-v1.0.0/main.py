@@ -1,3 +1,6 @@
+'''
+    text for options menu
+'''
 menu_options = """
 
 Selecione uma opção válida para a operação bancária:
@@ -9,20 +12,29 @@ Selecione uma opção válida para a operação bancária:
 
 >  """
 
+
+'''
+    global variables
+'''
 WITHDRAWAL_LIMIT = 3
 withdrawal_number = 0
 bank_balance = 0
 bank_withdrawal_limit = 500
 extract = []
 
+
+'''
+    initial execution
+'''
 print("================ BANKING SYSTEM ================", end="")
 while True:
+    # get menu option
     option = input(menu_options)
-
+    # exit execution
     if option == "0":
         print("")
         break
-    
+    # make a bank deposit
     elif option == "1":
         deposit_amount = float(input("\nInforme o valor a ser depositado: R$ "))
         if deposit_amount > 0:
@@ -32,7 +44,7 @@ while True:
             print(f"\n✔ - Depósito de R$ {deposit_amount:.2f} realizado com sucesso.", end="")
         else:
             print("\n✖ - Operação inválida. Verifique novamente o valor informado e tente novamente.", end="")
-    
+    # make a bank withdrawal
     elif option == "2":
         is_withdrawal_limit_exceeded = withdrawal_number >= WITHDRAWAL_LIMIT
         if is_withdrawal_limit_exceeded:             
@@ -55,7 +67,7 @@ while True:
                         print(f"\n✔ - Saque de R$ {amount_withdrawn:.2f} realizado com sucesso.", end="")
             else:
                 print("\n✖ - Operação inválida. Verifique novamente o valor informado e tente novamente.", end="")
-
+    # get a bank statement
     elif option == "3":
         print("\n_______________ BANK STATEMENT ________________\n")
         print("-----------------------------------------------")
@@ -70,9 +82,7 @@ while True:
                 print(f"Saldo Pós-Transação: {element['bank_balance']}\n")
                 print("-----------------------------------------------")
         print("_______________________________________________")
-
     else:
         print("\n✖ - Operação inválida. Verifique novamente as opções permitidas abaixo.", end="")
-
 print("================================================")
 print("\n\n>>> Obrigado por usar o BANKING SYSTEM. Até logo!\n")
